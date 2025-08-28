@@ -3,12 +3,11 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config();
-const app = express();
 
+const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Endpoint to send email
 app.post('/send-unburn', async (req, res) => {
   const {name, phone, pressure, burnType} = req.body;
   if(!name || !phone || !pressure || !burnType){
