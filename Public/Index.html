@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +61,7 @@ async function requestUnburn() {
   status.innerText = "Sending request...";
 
   try {
-    const res = await fetch('/send-unburn', {
+    const res = await fetch('https://YOUR_RENDER_BACKEND_URL/send-unburn', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({name, phone, pressure, burnType})
@@ -69,7 +70,7 @@ async function requestUnburn() {
     if(data.success){
       status.innerText = "✅ Request sent successfully!";
     } else {
-      status.innerText = "❌ Failed to send request.";
+      status.innerText = "❌ Failed to send request. Try again.";
     }
   } catch(e){
     status.innerText = "❌ Error sending request.";
