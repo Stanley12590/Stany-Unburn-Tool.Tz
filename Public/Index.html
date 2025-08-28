@@ -1,82 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STANY UNBURN TOOL</title>
-<style>
-body { font-family: Arial, sans-serif; background:#0d1b2a; color:white; text-align:center; padding:20px; }
-.box { background:#1b263b; padding:30px; border-radius:20px; max-width:500px; margin:auto; box-shadow:0 0 20px rgba(0,0,0,0.7); }
-input, select, button { width:100%; padding:12px; margin:10px 0; border-radius:12px; border:none; font-size:16px; }
-button { background:#ff0033; color:white; font-weight:bold; cursor:pointer; transition:0.3s; }
-button:hover { background:#d90429; }
-h2 { color:#4cc9f0; }
-#status { font-weight:bold; margin-top:10px; }
-</style>
+<title>STANY TOOL</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="box">
-<h2> STANY UNBURN TOOL </h2>
+<div class="container">
+  <h2> STANY UNBURN TOOL </h2>
 
-<label>Enter Your Full Name:</label>
-<input type="text" id="name" placeholder="Your Full Name">
+  <div id="dynamic-content"></div>
 
-<label>Enter Your Phone Number:</label>
-<input type="text" id="phone" placeholder="+2557XXXXXXXX">
-
-<label>Select Unburn Type:</label>
-<select id="pressure">
-  <option value="Gold">Gold</option>
-  <option value="Prime">Prime</option>
-  <option value="NA">NA</option>
-  <option value="Beta">Beta</option>
-  <option value="Restricted">Restricted</option>
-</select>
-
-<label>Select Burn Type:</label>
-<select id="burnType">
-  <option value="Temporary">Temporary Burn</option>
-  <option value="Permanent">Permanent Burn</option>
-  <option value="Restricted">Restricted</option>
-</select>
-
-<button onclick="requestUnburn()">Request Unburn</button>
-<p id="status"></p>
+  <h3>Request Unburn</h3>
+  <input type="text" id="name" placeholder="Your Full Name">
+  <input type="text" id="phone" placeholder="+2557XXXXXXXX">
+  <select id="pressure">
+    <option value="Gold">Gold</option>
+    <option value="Prime">Prime</option>
+    <option value="NA">NA</option>
+    <option value="Beta">Beta</option>
+    <option value="Restricted">Restricted</option>
+  </select>
+  <select id="burnType">
+    <option value="Temporary">Temporary Burn</option>
+    <option value="Permanent">Permanent Burn</option>
+    <option value="Restricted">Restricted</option>
+  </select>
+  <button onclick="requestUnburn()">Request Unburn</button>
+  <p id="status"></p>
 </div>
 
-<script>
-async function requestUnburn() {
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const pressure = document.getElementById("pressure").value;
-  const burnType = document.getElementById("burnType").value;
-  const status = document.getElementById("status");
-
-  if(!name || !phone || !pressure || !burnType){
-    alert("⚠️ Please fill all fields.");
-    return;
-  }
-
-  status.innerText = "Sending request...";
-
-  try {
-    const res = await fetch('https://YOUR_RENDER_BACKEND_URL/send-unburn', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({name, phone, pressure, burnType})
-    });
-    const data = await res.json();
-    if(data.success){
-      status.innerText = "✅ Request sent successfully!";
-    } else {
-      status.innerText = "❌ Failed to send request. Try again.";
-    }
-  } catch(e){
-    status.innerText = "❌ Error sending request.";
-    console.error(e);
-  }
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>
